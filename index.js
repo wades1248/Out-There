@@ -7,15 +7,24 @@ function getLocation(){
  	getTaxon(position);
 	}
 	function locationFailure(err){
-  $('.jsError').text(`ERROR(${err.code}): ${err.message}, Try entering an address.`);
+  $('.jsError').text(`ERROR(${err.code}): ${err.message}, Try entering a city.`);
 	}
  
 	if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(locationSuccess,locationFailure);
   }else{
-  		$('.jsError').text(`Could not find location, try entering an address.`);
+  		$('.jsError').text(`Could not find location, try entering a city.`);
   };
 }
+
+function handleCityInput() {
+	$('.inputBar').submit( event => {
+	event.preventDefault();
+	var city = $('.cityInput').val();
+	getCityWeather(city);
+	//getCityTaxon(responseJson);
+	});
+	}
 
 function getWeather(position){
 	const APIKey = `6f1db6bbcce144b73f9217c2d91174c7`;
@@ -39,11 +48,55 @@ function getWeather(position){
     .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
     });
 }
+
+function getCityWeather(city){
+	const APIKey = `6f1db6bbcce144b73f9217c2d91174c7`;
+
+	fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${APIKey}`)
+	  .then(response => {
+      if (response.ok){
+      	return response.json();
+       //console.log( response.json());
+    		}
+      else {
+     throw new Error (response.statusText);}
+    })
+    .then(responseJson => {
+			displayWeather(responseJson);
+			getCityTaxon(responseJson);
+			console.log(responseJson);
+			})
+
+    .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
+    });
+}
     
 function getTaxon(position){
 	
 	const latitude = position.coords.latitude;
 	const longitude = position.coords.longitude;
+	
+	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=12&order=desc&order_by=created_at`)
+	
+	.then(response => {
+    if (response.ok){
+      return response.json();
+    }
+    else {
+     throw new Error (response.statusText);}
+    })
+  .then(responseJson => {
+  displayTaxon(responseJson);
+  	console.log(responseJson);
+  	})
+  .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
+    });
+	}
+	
+function getCityTaxon(responseJson){
+	
+	const latitude = responseJson.coord.lat;
+	const longitude = responseJson.coord.lon;
 	
 	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=12&order=desc&order_by=created_at`)
 	
@@ -93,9 +146,12 @@ function displayTaxon(responseJson){
 		<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
 		<h3><a href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a> </h3>`);
 		}
-		}
-			
+}
+		
+function initialize(){
+	handleStart();
+	handleCityInput();
+}
 
-
-$(handleStart())
+$(initialize())
 //getWeather(Position);
