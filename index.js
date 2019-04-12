@@ -19,11 +19,11 @@ function getLocation(){
 
 function handleCityInput() {
 	$('.inputBar').submit( event => {
-	event.preventDefault();
-	var city = $('.cityInput').val();
-	getCityWeather(city);
-	//getCityTaxon(responseJson);
-	});
+		event.preventDefault();
+		$('.jsError').replaceWith(`<div class="jsError"></div>`);
+		var city = $('.cityInput').val();
+		getCityWeather(city);
+		});
 	}
 
 function getWeather(position){
@@ -45,7 +45,7 @@ function getWeather(position){
 			console.log(responseJson);
 			})
 			
-    .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
+    .catch(err => { $('.jsError').text(`Something went wrong getting weather data: ${err.message}`);
     });
 }
 
@@ -62,12 +62,12 @@ function getCityWeather(city){
      throw new Error (response.statusText);}
     })
     .then(responseJson => {
-			displayWeather(responseJson);
-			getCityTaxon(responseJson);
-			console.log(responseJson);
+				displayWeather(responseJson);
+				getCityTaxon(responseJson);
+				console.log(responseJson);
 			})
 
-    .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
+    .catch(err => { $('.jsError').text(`Something went wrong getting weather for this city: ${err.message}`);
     });
 }
     
@@ -86,10 +86,10 @@ function getTaxon(position){
      throw new Error (response.statusText);}
     })
   .then(responseJson => {
-  displayTaxon(responseJson);
-  	console.log(responseJson);
+  		displayTaxon(responseJson);
+  		console.log(responseJson);
   	})
-  .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
+  .catch(err => { $('.jsError').text(`Something went wrong getting sightings: ${err.message}`);
     });
 	}
 	
@@ -111,7 +111,7 @@ function getCityTaxon(responseJson){
   displayTaxon(responseJson);
   	console.log(responseJson);
   	})
-  .catch(err => { $('.jsError').text(`Something went wrong: ${err.message}`);
+  .catch(err => { $('.jsError').text(`Something went wrong getting sightings: ${err.message}`);
     });
 	}
 	
@@ -120,6 +120,7 @@ function handleStart(){
 		event.preventDefault();
 		getLocation();
 		$('.welcome').toggleClass("hidden");
+		$('.inputBar').toggleClass("hidden");
 	})
 }
 
@@ -139,13 +140,22 @@ function displayTaxon(responseJson){
 	$('.jsTaxon').empty();
 	$('.jsTaxon').append(`<h1>Who&#39s Out There:</h1>`);
 	for(let i=1; i< responseJson.results.length; i++){
-	$('.jsTaxon').append(
-		`<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${responseJson.results[i].photos[0].url}">
-		<h2>${responseJson.results[i].taxon.preferred_common_name}</h2>
-		<h3>Scientiffic Name: ${responseJson.results[i].taxon.name}</h3>
-		<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
-		<h3><a href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a> </h3>`);
+		if(responseJson.results[i].taxon.preferred_common_name === undefined){
+			$('.jsTaxon').append(
+			`<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${responseJson.results[i].photos[0].url}">
+			<h2>Scientiffic Name: ${responseJson.results[i].taxon.name}</h2>
+			<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
+			<h3><a href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a> </h3>`);
+		
+		}else{
+		$('.jsTaxon').append(
+			`<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${responseJson.results[i].photos[0].url}">
+			<h2>${responseJson.results[i].taxon.preferred_common_name.toUpperCase()}</h2>
+			<h3>Scientiffic Name: ${responseJson.results[i].taxon.name}</h3>
+			<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
+			<h3><a href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a> </h3>`);
 		}
+	}
 }
 		
 function initialize(){
