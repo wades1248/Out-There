@@ -4,30 +4,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Out There MVP</title>
+  		<link href="https://meyerweb.com/eric/tools/css/reset/reset.css" rel="stylesheet" type="text/css"/>
     <link href="style.css" rel="stylesheet" type="text/css" />
-
+			<link href="https://fonts.googleapis.com/css?family=Saira" rel="stylesheet">
   </head>
   <body>
-  <form class="inputBar hidden" role="city input">
-  	<input class="cityInput" type="text" placeholder="City"></input>
-  	<button type="sumbit"><span>check it out</span></button>
+  	<form class="inputBar hidden" role="city input">
+  		<input class="cityInput" type="text" placeholder="City"></input>
+  		<button type="sumbit"><span>Look Out There</span></button>
   </form>
-  <main role="main">
-  	<div class="welcome" role="banner">
-  		<h1> Welcome to Out There!</h1>
-  			<h2>Please allow us to use your current location to find out what's going on in the natural world around you, or enter a city.</h2>
+  	<main role="main">
+  		<div class="welcome" role="banner">
+  			<h1> Welcome to Out There!</h1>
+  			<h2>Please allow us to use your current location to find out what's going on in the natural world around you, or enter a city for weather and species sightings anywhere in the world.</h2>
   			<input type="button"  class="start" value="OK">
   			</input>
   		</div>
-  			<div class="jsError"></div>
-  			<div class="jsWeather"></div>
-  			<div class="jsTaxon"></div>
-  			
-    
-    
-    </main>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-			<script src="index.js"></script>
+  			<div class="jsError" aria-live="polite"></div>
+  			<div class="jsWeather" aria-live="polite"></div>
+  			<div class="jsTaxon" aria-live="polite"></div>
+  </main>
+  <footer>
+  	<p>Weather data provided by <a href="https://developer.accuweather.com/"><img href="placeholder" alt="AccuWeather APIs"></a><br>
+  		Taxon data provided by <a href="https://api.inaturalist.org/v1/">iNaturalist API</a></p>
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	<script src="index.js"></script>
 	</body>
 </html>
