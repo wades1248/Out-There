@@ -56,7 +56,6 @@ function getCityWeather(city){
    .then(responseJson => {
 				displayWeather(responseJson);
 				getCityTaxon(responseJson);
-				console.log(responseJson);
 			})
    .catch(err => { $('.jsError').text(`Something went wrong getting weather for this city: ${err.message}`);
    });
