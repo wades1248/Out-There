@@ -31,7 +31,7 @@ function getWeather(position){
 	fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&APPID=${APIKey}`)
 		.then(response => {
    	if (response.ok){
-   		return response.json();
+				return response.json():
 			}else {
 				throw new Error (response.statusText);}
    })
