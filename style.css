@@ -2,23 +2,23 @@
 	display:none !important;
 	}
 *{
-  color: white;
-  font-family: 'Saira', sans-serif;
-  font-size: 20px;
+	color: white;
+	font-family: 'Saira', sans-serif;
+	font-size: 20px;
 }
 
 html{
-  height: 100%;
+	height: 100%;
 }
 
 body{
-  background: linear-gradient(white,rgb(136, 196, 245),rgb(10, 212, 101), rgb(129, 87, 24));
-  background-color: rgb(129, 87, 24);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  width: 100%;
-  margin-bottom: 0px;
+	background: linear-gradient(white,rgb(136, 196, 245),rgb(10, 212, 101), rgb(129, 87, 24));
+	background-color: rgb(129, 87, 24);
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	width: 100%;
+	margin-bottom: 0px;
 }
 
 button :hover{
@@ -32,13 +32,13 @@ button :hover{
 	justify-content: center;
 	width: 80%;
 	height: auto;
-  margin-top: 25%;
-  margin-bottom: 25%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-  background-color: rgba(206, 216, 206, 0.411);
+	margin-top: 25%;
+	margin-bottom: 25%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: rgba(206, 216, 206, 0.411);
 }
 
 .welcome h1, .welcome h2, .welcome input{
@@ -46,21 +46,21 @@ button :hover{
 }
 
 .welcome h1, .welcome h2{
-  width: 100%;
-  text-align: center;
-  padding:15px;
-  }
+	width: 100%;
+	text-align: center;
+	padding:15px;
+}
 
 h1{
-  font-size: 30px;
+	font-size: 30px;
 }
 
 .welcome input{
-  margin-bottom: 25px;
-  background-color: rgba(205, 216, 205, 0.562);
-  border: none;
-  height: 30px;
-  width: 50px;
+	margin-bottom: 25px;
+	background-color: rgba(205, 216, 205, 0.562);
+	border: none;
+	height: 30px;
+	width: 50px;
 }
 
 .start:hover{
@@ -68,20 +68,20 @@ h1{
 }
 
 .inputBar{
-  height: 60px;
-  width: 100%;
-  background: linear-gradient(rgba(20, 175, 20, 0.418),white);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+	height: 60px;
+	width: 100%;
+	background: linear-gradient(rgba(20, 175, 20, 0.418),white);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .inputBar input{
-  margin-left: 10px;
-  color: darkgreen;
-  border: none;
-  font-size: 20px;
-  height: 30px;
+	margin-left: 10px;
+	color: darkgreen;
+	border: none;
+	font-size: 20px;
+	height: 30px;
 }
 
 .cityInput{
@@ -90,26 +90,26 @@ h1{
 }
 
 .inputBar button{
-  background-color: rgba(15, 114, 131, 0.623);
-  border: none;
-  height: 30px;
-  font-size: 20px;
+	background-color: rgba(15, 114, 131, 0.623);
+	border: none;
+	height: 30px;
+	font-size: 20px;
 }
 
- .jsError, .jsWeather, .jsTaxon, .resultsItem{
-  display: block;
-  margin: 10px;
-  padding: 10px;
+.jsError, .jsWeather, .jsTaxon, .resultsItem{
+	display: block;
+	margin: 10px;
+	padding: 10px;
 }
 
 .jsError, .jsWeather h1, .jsWeather h2, .jsWeather h3{
-  color:black;
+	color:darkblue;
 }
 
 .jsWeather h1, .jsTaxon h1{
-  margin-bottom: 20px;
-  width: 100%;
-  display: block;
+	margin-bottom: 20px;
+	width: 100%;
+	display: block;
 }
 
 .jsWeather h1{
@@ -120,23 +120,23 @@ h1{
 }
 
 .jsTaxon{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .resultsItem {
-  display: block;
-  width: 200px;
-  background-color: rgba(205, 216, 205, 0.562);
+	display: block;
+	width: 200px;
+	background-color: rgba(205, 216, 205, 0.562);
 }
 
 .resultsItem img{
-  height: 150px;
-  width: 150px;
-  margin-right: 25px;
-  margin-left: 25px;
-  margin-bottom: 10px;
+	height: 150px;
+	width: 150px;
+	margin-right: 25px;
+	margin-left: 25px;
+	margin-bottom: 10px;
 }
 
 footer{

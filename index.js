@@ -1,17 +1,16 @@
 
 function getLocation(){
 	function locationSuccess(position){
- 	getWeather(position);
- 	getTaxon(position);
+	getWeather(position);
+	getTaxon(position);
 	}
-	
-	function locationFailure(err){
-  $('.jsError').text(`ERROR(${err.code}): ${err.message} Try entering a city.`);
-	}
- if(navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(locationSuccess,locationFailure);
- 	}else{
-		$('.jsError').text(`Could not find location, try entering a city.`);
+		function locationFailure(err){
+		$('.jsError').text(`ERROR(${err.code}): ${err.message} Try entering a city.`);
+		}
+		if(navigator.geolocation){
+			navigator.geolocation.getCurrentPosition(locationSuccess,locationFailure);
+		}else{
+			$('.jsError').text(`Could not find location, try entering a city.`);
   };
 }
 
@@ -21,8 +20,8 @@ function handleCityInput() {
 		$('.jsError').replaceWith(`<div class="jsError" aria-live="polite"></div>`);
 		var city = $('.cityInput').val();
 		getCityWeather(city);
-		});
-	}
+	});
+}
 
 function getWeather(position){
 	const APIKey = `6f1db6bbcce144b73f9217c2d91174c7`;
@@ -31,34 +30,36 @@ function getWeather(position){
 	
 	fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&APPID=${APIKey}`)
 		.then(response => {
-      if (response.ok){
-      	return response.json();
-   }else {
-     throw new Error (response.statusText);}
+   	if (response.ok){
+				return response.json();
+			}else {
+				throw new Error (response.statusText);}
    })
-   .then(responseJson => {
+		.then(responseJson => {
 			displayWeather(responseJson);
 		})
-		.catch(err => { $('.jsError').text(`Something went wrong getting weather data: ${err.message}`);
-    });
+		.catch(err => { 
+			$('.jsError').text(`Something went wrong getting weather data: ${err.message}`);
+   });
 }
 
 function getCityWeather(city){
 	const APIKey = `6f1db6bbcce144b73f9217c2d91174c7`;
 
 	fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${APIKey}`)
-	  .then(response => {
-      if (response.ok){
-      	return response.json();
-    		}else {
-					throw new Error (response.statusText);}
-				})
-   .then(responseJson => {
-				displayWeather(responseJson);
-				getCityTaxon(responseJson);
+		.then(response => {
+			if (response.ok){
+				return response.json();
+			}else {
+				throw new Error (response.statusText);}
 			})
-   .catch(err => { $('.jsError').text(`Something went wrong getting weather for this city: ${err.message}`);
-   });
+		.then(responseJson => {
+			displayWeather(responseJson);
+			getCityTaxon(responseJson);
+		})
+		.catch(err => { 
+			$('.jsError').text(`Something went wrong getting weather for this city: ${err.message}`);
+		});
 }
     
 function getTaxon(position){
@@ -66,17 +67,18 @@ function getTaxon(position){
 	const latitude = position.coords.latitude;
 	const longitude = position.coords.longitude;
 	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=13&order=desc&order_by=created_at`)
-	.then(response => {
-  	if (response.ok){
-     return response.json();
-   }else {
-     throw new Error (response.statusText);}
-    })
-  .then(responseJson => {
-  		displayTaxon(responseJson);
-  	})
-  .catch(err => { $('.jsError').text(`Something went wrong getting sightings: ${err.message}`);
-    });
+		.then(response => {
+			if (response.ok){
+				return response.json();
+			}else {
+				throw new Error (response.statusText);}
+			})
+		.then(responseJson => {
+			displayTaxon(responseJson);
+			})
+		.catch(err => { 
+			$('.jsError').text(`Something went wrong getting sightings: ${err.message}`);
+		});
 }
 	
 function getCityTaxon(responseJson){
@@ -86,17 +88,18 @@ function getCityTaxon(responseJson){
 	
 	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=13&order=desc&order_by=created_at`)
 		.then(response => {
-    if (response.ok){
-      return response.json();
-    }else {
-     throw new Error (response.statusText);}
-    })
+			if (response.ok){
+				return response.json();
+			}else {
+				throw new Error (response.statusText);}
+			})
 		.then(responseJson => {
-  		displayTaxon(responseJson);
-  	})
-		.catch(err => { $('.jsError').text(`Something went wrong getting sightings: ${err.message}`);
-    });
-	}
+			displayTaxon(responseJson);
+		})
+		.catch(err => { 
+			$('.jsError').text(`Something went wrong getting sightings: ${err.message}`);
+		});
+}
 	
 function handleStart(){
 	$('.start').click( event => {
@@ -110,7 +113,7 @@ function handleStart(){
 function displayWeather(responseJson){
 //this if statement is made to filter out some holes in the icon library provided by AccuWeather, although frequently the icon number received does not match any icons in their library
 	if(28<responseJson.weather[0].icon.slice(0,2)<45 && 10<responseJson.weather[0].icon.slice(0,2)<27 && responseJson.weather[0].icon.slice(0,2)<9){
-	$('.jsWeather').replaceWith(
+		$('.jsWeather').replaceWith(
 		`<div class="jsWeather" role="weather info" aria-live="polite">
 			<h1>Out There in ${responseJson.name}</h1>
 			<h2>${responseJson.weather[0].description.toUpperCase()}<img src="https://developer.accuweather.com/sites/default/files/${responseJson.weather[0].icon.slice(0,2)}-s.png" alt="weather icon"></h2>
@@ -129,7 +132,7 @@ function displayWeather(responseJson){
 			<h2>Humidity: ${responseJson.main.humidity}%</h2>
 			<h2>Wind Speed: ${responseJson.wind.speed} MPH</h2>
 			</div>`);
-		}
+	}
 }
 	
 
