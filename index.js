@@ -38,7 +38,6 @@ function getWeather(position){
    })
    .then(responseJson => {
 			displayWeather(responseJson);
-			console.log(responseJson);
 		})
 		.catch(err => { $('.jsError').text(`Something went wrong getting weather data: ${err.message}`);
     });
@@ -57,6 +56,7 @@ function getCityWeather(city){
    .then(responseJson => {
 				displayWeather(responseJson);
 				getCityTaxon(responseJson);
+				console.log(responseJson);
 			})
    .catch(err => { $('.jsError').text(`Something went wrong getting weather for this city: ${err.message}`);
    });
@@ -109,7 +109,19 @@ function handleStart(){
 }
 
 function displayWeather(responseJson){
+//this if statement is made to filter out some holes in the icon library provided by AccuWeather, although frequently the icon number received does not match any icons in their library
+	if(28<responseJson.weather[0].icon.slice(0,2)<45 && 10<responseJson.weather[0].icon.slice(0,2)<27 && responseJson.weather[0].icon.slice(0,2)<9){
 	$('.jsWeather').replaceWith(
+		`<div class="jsWeather" role="weather info" aria-live="polite">
+			<h1>Out There in ${responseJson.name}</h1>
+			<h2>${responseJson.weather[0].description.toUpperCase()}<img src="https://developer.accuweather.com/sites/default/files/${responseJson.weather[0].icon.slice(0,2)}-s.png" alt="weather icon"></h2>
+			<h2>Temperature: ${responseJson.main.temp}&#8457</h2>
+			<h3> Low: ${responseJson.main.temp_min}&#8457 High: ${responseJson.main.temp_max}&#8457</h3>
+			<h2>Humidity: ${responseJson.main.humidity}%</h2>
+			<h2>Wind Speed: ${responseJson.wind.speed} MPH</h2>
+			</div>`);
+	}else{
+		$('.jsWeather').replaceWith(
 		`<div class="jsWeather" role="weather info" aria-live="polite">
 			<h1>Out There in ${responseJson.name}</h1>
 			<h2>${responseJson.weather[0].description.toUpperCase()}</h2>
@@ -118,7 +130,9 @@ function displayWeather(responseJson){
 			<h2>Humidity: ${responseJson.main.humidity}%</h2>
 			<h2>Wind Speed: ${responseJson.wind.speed} MPH</h2>
 			</div>`);
+		}
 }
+	
 
 function displayTaxon(responseJson){
 	$('.jsTaxon').empty();

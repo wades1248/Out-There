@@ -21,6 +21,10 @@ body{
   margin-bottom: 0px;
 }
 
+button :hover{
+	color: blue;
+}
+
 .welcome{
 	display: flex;
 	flex-direction: column;
@@ -57,6 +61,10 @@ h1{
   border: none;
   height: 30px;
   width: 50px;
+}
+
+.start:hover{
+	color: blue;
 }
 
 .inputBar{
@@ -107,6 +115,9 @@ h1{
 .jsWeather h1{
 	font-size: 40px;
 }
+.jsWeather img{
+	margin-left: 50px;
+}
 
 .jsTaxon{
   display: flex;
@@ -134,4 +145,9 @@ footer{
 	display:block;
 	position: relative;
 	bottom: 0px;
+}
+
+footer img{
+	width: 100px;
+	height: auto;
 }
