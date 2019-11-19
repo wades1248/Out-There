@@ -87,7 +87,7 @@ function getCityTaxon(responseJson){
 	const latitude = responseJson.coord.lat;
 	const longitude = responseJson.coord.lon;
 	
-	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=5&order=desc&order_by=created_at`)
+	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=6&order=desc&order_by=created_at`)
 		.then(response => {
 			if (response.ok){
 				return response.json();
