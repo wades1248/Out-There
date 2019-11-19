@@ -68,6 +68,7 @@ function getTaxon(position){
 	const longitude = position.coords.longitude;
 	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=13&order=desc&order_by=created_at`)
 		.then(response => {
+			
 			if (response.ok){
 				return response.json();
 			}else {
@@ -86,7 +87,7 @@ function getCityTaxon(responseJson){
 	const latitude = responseJson.coord.lat;
 	const longitude = responseJson.coord.lon;
 	
-	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=13&order=desc&order_by=created_at`)
+	fetch(`https://api.inaturalist.org/v1/observations?geo=true&identified=true&photos=true&lat=${latitude}&lng=${longitude}&radius=5&per_page=5&order=desc&order_by=created_at`)
 		.then(response => {
 			if (response.ok){
 				return response.json();
@@ -114,7 +115,7 @@ function displayWeather(responseJson){
 //this if statement is made to filter out some holes in the icon library provided by AccuWeather, although frequently the icon number received does not match any icons in their library
 	if(28<responseJson.weather[0].icon.slice(0,2)<45 && 10<responseJson.weather[0].icon.slice(0,2)<27 && responseJson.weather[0].icon.slice(0,2)<9){
 		$('.jsWeather').replaceWith(
-		`<div class="jsWeather" role="weather info" aria-live="polite">
+		`<div class="jsWeather" aria-live="polite">
 			<h1>Out There in ${responseJson.name}</h1>
 			<h2>${responseJson.weather[0].description.toUpperCase()}<img src="https://developer.accuweather.com/sites/default/files/${responseJson.weather[0].icon.slice(0,2)}-s.png" alt="weather icon"></h2>
 			<h2>Temperature: ${responseJson.main.temp}&#8457</h2>
@@ -124,7 +125,7 @@ function displayWeather(responseJson){
 			</div>`);
 	}else{
 		$('.jsWeather').replaceWith(
-		`<div class="jsWeather" role="weather info" aria-live="polite">
+		`<div class="jsWeather" aria-live="polite">
 			<h1>Out There in ${responseJson.name}</h1>
 			<h2>${responseJson.weather[0].description.toUpperCase()}</h2>
 			<h2>Temperature: ${responseJson.main.temp}&#8457</h2>
@@ -138,25 +139,26 @@ function displayWeather(responseJson){
 
 function displayTaxon(responseJson){
 	$('.jsTaxon').empty();
-	$('.jsTaxon').append(`<h1>Who&#39s Out There:</h1>`);
-	for(let i=1; i< responseJson.results.length; i++){
+	$('.jsTaxon').append(`<h1>What&#39s Out There:</h1>`);
+	for(let i=0; i< responseJson.results.length; i++){
+		const photoURL= responseJson.results[i].photos[0].url.split('square').join('original');
 		if(responseJson.results[i].taxon.preferred_common_name === undefined){
 			$('.jsTaxon').append(
-			`<div class="resultsItem">
-			<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${responseJson.results[i].photos[0].url}">
-			<h2>Scientiffic Name: ${responseJson.results[i].taxon.name}</h2>
-			<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
-			<h3><a href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a> </h3>
+			`<div class="resultsItem" role="listitem">
+				<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${photoURL}">
+				<h2>Scientiffic Name: ${responseJson.results[i].taxon.name}</h2>
+				<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
+				<a class="wiki" href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a>
 			</div>`);
 		
 		}else{
 		$('.jsTaxon').append(
 			`<div class="resultsItem">
-			<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${responseJson.results[i].photos[0].url}">
-			<h2>${responseJson.results[i].taxon.preferred_common_name.toUpperCase()}</h2>
-			<h3>Scientific Name: ${responseJson.results[i].taxon.name}</h3>
-			<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
-			<h3><a href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a> </h3>
+				<img alt="${responseJson.results[i].taxon.preferred_common_name}" src="${photoURL}">
+				<h2>${responseJson.results[i].taxon.preferred_common_name.toUpperCase()}</h2>
+				<h3>Scientific Name: ${responseJson.results[i].taxon.name}</h3>
+				<h3>Observed: ${responseJson.results[i].observed_on} at ${responseJson.results[i].place_guess}</h3>
+				<a class="wiki" href="${responseJson.results[i].taxon.wikipedia_url}" target="blank">More Information</a>
 			</div>`);
 		}
 	}

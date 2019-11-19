@@ -1,22 +1,19 @@
 .hidden {
 	display:none !important;
 	}
-*{
+*, footer{
 	color: white;
 	font-family: 'Saira', sans-serif;
 	font-size: 20px;
 }
 
-html{
-	height: 100%;
-}
-
 body{
-	background: linear-gradient(white,rgb(136, 196, 245),rgb(10, 212, 101), rgb(129, 87, 24));
-	background-color: rgb(129, 87, 24);
+	min-height: 100vh;
+	height: 100%;
+	background: linear-gradient(rgb(136, 196, 245),rgb(10, 212, 101), rgb(24, 129, 28));
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100%;
+	
 	width: 100%;
 	margin-bottom: 0px;
 }
@@ -39,6 +36,8 @@ button :hover{
 	padding-left: 15px;
 	padding-right: 15px;
 	background-color: rgba(206, 216, 206, 0.411);
+	max-width: 400px;
+	border-radius: 5%;
 }
 
 .welcome h1, .welcome h2, .welcome input{
@@ -55,12 +54,11 @@ h1{
 	font-size: 30px;
 }
 
-.welcome input{
+.welcome button{
 	margin-bottom: 25px;
 	background-color: rgba(205, 216, 205, 0.562);
-	border: none;
-	height: 30px;
 	width: 50px;
+	border-radius: 10%;
 }
 
 .start:hover{
@@ -83,7 +81,10 @@ h1{
 	font-size: 20px;
 	height: 30px;
 }
-
+.inputBar button, .inputBar input{
+	margin-top: auto;
+	margin-bottom: auto;
+}
 .cityInput{
 	width: 150px;
 	padding-left: 10px;
@@ -126,9 +127,13 @@ h1{
 }
 
 .resultsItem {
-	display: block;
+	border-radius: 5%;
+	padding: 10px;
+	display: flex;
+	min-height: 350px;
 	width: 200px;
 	background-color: rgba(205, 216, 205, 0.562);
+	flex-direction: column;
 }
 
 .resultsItem img{
@@ -138,11 +143,21 @@ h1{
 	margin-left: 25px;
 	margin-bottom: 10px;
 }
+.wiki{
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: auto;
+}
+.wiki:hover{
+	color: darkblue;
+}
 
 footer{
 	padding: 20px;
-	margin: 20px;
-	display:block;
+	padding-bottom: 40px;
+	margin-top: 20px;
+	display:flex;
+	justify-content: space-around;
 	position: relative;
 	bottom: 0px;
 }
